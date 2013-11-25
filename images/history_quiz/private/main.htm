@@ -1,0 +1,245 @@
+<html>
+
+<head>
+<title>History Photo Quiz</title>
+<style TYPE="text/css">
+SPAN.normalPC {font-family: Arial,Helvetica,Verdana; color: #400000; font-size: 17px;}
+</style>
+</head>
+
+<body BGCOLOR="#FFE2C6" background="images/tile.jpg">
+<script language="JavaScript1.2" SRC="data.js"></script>
+<script language="JavaScript1.2">
+<!-- Hide
+
+
+mac=1;if(navigator.appVersion.indexOf("Macintosh")==-1) mac=0;
+
+app="I";
+if(navigator.appName=="Netscape") app="N";
+if(app=="N" && parseInt(navigator.appVersion)>4) app="N6";
+
+if (app=="N")  {
+doc_ref='document.layers["';
+style_ref='"]';
+pic_ref='document.buttonlayer.document.';
+}
+else {
+if (app=="N6") {
+doc_ref='document.getElementById("';
+style_ref='").style';
+pic_ref='document.';
+}
+else {
+doc_ref='document.all["';
+style_ref='"].style';
+pic_ref='document.';
+}
+}
+
+
+normal='<SPAN class="normalPC">';
+
+h1style='<H1 Style="font-family: Arial,Helvetica,Verdana; color: #400000; font-size: 13px;">';
+
+firsttime=0;
+
+this_question=1;
+score=0;
+
+letter=new Array('','A','B','C','D')
+
+photo=new Array();
+question=new Array();
+optionA=new Array();
+optionB=new Array();
+optionC=new Array();
+optionD=new Array();
+responseA=new Array();
+responseB=new Array();
+responseC=new Array();
+responseD=new Array();
+correct=new Array();
+
+order=new Array();
+for (k=1;k<=questions;k++) {
+order[k]=k;
+}
+
+// -------------------------------------
+
+// MAKE LAYERS
+
+makelayer('textlayer','visible',10,10,180,100,100);
+w(' ');
+endbit();
+
+makelayer('buttonlayer','visible',10,160,180,220,100);
+w(' ');
+endbit();
+
+makelayer('piclayer','visible',180,10,450,380,100);
+w(' ');
+endbit();
+
+
+for (k=1;k<=questions;k++) {
+z=0;
+while(z==0) {
+m=Math.round(Math.random()*10000/100);
+if((m>0)&&(m<=questions)) z=1
+}
+temp=order[k];
+order[k]=order[m];
+order[m]=temp;
+}
+
+
+for (k=1;k<=questions;k++) {
+photo[k]=eval('P'+order[k]);
+question[k]=eval('Q'+order[k]);
+optionA[k]=eval('A'+order[k]+'A');
+optionB[k]=eval('A'+order[k]+'B');
+optionC[k]=eval('A'+order[k]+'C');
+optionD[k]=eval('A'+order[k]+'D');
+responseA[k]=eval('R'+order[k]+'A');
+responseB[k]=eval('R'+order[k]+'B');
+responseC[k]=eval('R'+order[k]+'C');
+responseD[k]=eval('R'+order[k]+'D');
+correct[k]=eval('correct'+order[k]);
+}
+
+setTimeout("show_question()",500);
+
+// -------------------------------------
+
+
+function show_question() {
+button_flag=0;
+
+str='<p align="center">'+normal+'<b>'+this_question+'.</b></span></p><p>'+normal+question[this_question]+'</span>';
+write_to_layer("textlayer");
+str="<p align='center'><img SRC='photos/"+photo[this_question]+" border='1'>";
+write_to_layer("piclayer");
+str='<p align="center">';
+for (i=1;i<=4;i++) {
+str+=('<a href="javascript:CheckAnswer('+i+')">');
+str+=('<img name="button'+i+'" src="images/button1.gif" border="0" align="absmiddle" WIDTH="35" HEIGHT="35"></a>');
+str+=(normal+eval('option'+letter[i]+'[this_question]')+'</span><br>');
+}
+write_to_layer("buttonlayer");
+
+parent.questions.document.open();
+str='<body bgcolor="#FFE2C6">';
+
+if(firsttime==0) {
+firsttime=1;
+
+str+='<img src="images/blank.gif" width="10" height="16"><br>';
+str+='<center><table border="0" cellspacing="0" cellpadding="4" width="75%"><tr><td align="center">';
+str+=h1style;
+str+=intro;
+str+='</H1></td></tr></table></center>';
+}
+str+='</body>';
+parent.questions.document.write(str);
+parent.questions.document.close();
+}
+
+function next_question() {
+if(this_question<questions) {
+this_question++;
+show_question();
+str="";
+}
+else {
+parent.questions.document.open();
+str='<body bgcolor="#FFE2C6"><img src="images/blank.gif" width="10" height="6"><br>';
+str+='<center><table border="0" cellspacing="0" cellpadding="4" width="100%"><tr><td width="60%" align="center">';
+str+=(h1style+'You have finished.<p>Your final score is: '+score+' / '+questions+'</H1>');
+str+='</td></tr></table></center>';
+parent.questions.document.write(str);
+parent.questions.document.close();
+}
+}
+
+function CheckAnswer(ma) {
+if(button_flag==2) return;
+my_answer=ma;
+eval(pic_ref+'button'+my_answer+'.src="images/button2.gif"');
+if(button_flag==1) show_question();
+setTimeout("CheckAnswer2()",500);
+}
+function CheckAnswer2() {
+eval(pic_ref+'button'+my_answer+'.src="images/button1.gif"');
+
+button_flag=1;
+
+parent.questions.document.open();
+
+str='<body bgcolor="#FFE2C6"><img src="images/blank.gif" width="10" height="6"><br>';
+str+='<center><table border="0" cellspacing="0" cellpadding="4" width="100%"><tr><td width="60%" align="center">';
+
+str+=h1style;
+
+// correct
+if(my_answer==correct[this_question]) {
+button_flag=2;
+score+=1;
+
+str+=eval('response'+letter[my_answer]+'[this_question]');
+}
+// wrong
+else str+=eval('response'+letter[my_answer]+'[this_question]');
+
+str+='</H1></td><td width="40%" align="center" valign="top">';
+
+str+=(h1style+'Score: '+score+' / '+questions+'</H1>');
+str+='</td></tr>';
+str+='<tr><td colspan="2" align="center">';
+
+if(my_answer!=correct[this_question]) {
+str+=('<a href="javascript:parent.main.show_question()"><img src="images/tryagain.gif" width="63" height="40" alt="try again" border="0"></a>');
+str+='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+
+}
+str+=('<a href="javascript:parent.main.next_question()"><img src="images/next.gif" width="63" height="40" alt="next" border="0"></a>');
+
+
+str+='</td></tr></table></center></body>';
+parent.questions.document.write(str);
+parent.questions.document.close();
+}
+
+
+
+// -------------------------------------
+
+
+// GENERAL FUNCTIONS
+
+function write_to_layer(layer) {
+if (app=="N") {with (document.layers[layer].document) {open();write(str);close();}}
+else
+if (app=="N6") {
+eval(doc_ref+layer+'").innerHTML=str');
+}
+else document.all[layer].innerHTML=str;
+}
+
+function makelayer(name,vis,left,top,width,height,z) {
+if(app=="N") w('<layer id="'+name+'" position=absolute visibility='+vis+' left='+left+' top='+top+' width='+width+' height='+height+' z-index='+z+';>');
+else w('<div id="'+name+'" STYLE="position:absolute;visibility:'+vis+';left:'+left+';top:'+top+';width:'+width+';height:'+height+';z-index:'+z+';">');
+}
+
+function endbit() {
+if (app=="N") w('</layer>');
+else w('</div>');
+}
+
+function w(cont) {document.write(cont);}
+// -->
+</script>
+
+</body>
+</html>

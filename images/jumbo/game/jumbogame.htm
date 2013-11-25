@@ -1,0 +1,627 @@
+<html>
+<head>
+<title>Jumbo</title>
+
+<style TYPE="text/css">
+.messagetext {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; color: #0000FF;}
+</style>
+
+</head>
+<body>
+
+<script language="JavaScript">
+<!-- Hide
+message=new Array();
+// -->
+</script>
+
+<script language="JavaScript" SRC="messages.txt"></script>
+
+<script language="JavaScript">
+<!-- Hide
+
+makediv("panel",0,343,780,157,"panel.png");
+
+makebutton("buttonlorryfwd","lorryfwdbut",22,462,"lorry_forward");
+makebutton("buttonlorrybwd","lorrybwdbut",92,462,"lorry_reverse");
+
+makebutton("buttoncranefwd","cranefwdbut",178,462,"crane_forward");
+makebutton("buttoncranebwd","cranebwdbut",248,462,"crane_reverse");
+
+makebutton("buttonjibextend","jibextendbut",334,409,"extend_jib");
+makebutton("buttonjibretract","jibretractbut",404,409,"retract_jib");
+
+makebutton("buttonjibup","jibupbut",334,462,"raise_jib");
+makebutton("buttonjibdown","jibdownbut",404,462,"lower_jib");
+
+makebutton("buttonhookup","hookupbut",490,462,"raise_hook");
+makebutton("buttonhookdown","hookdownbut",560,462,"lower_hook");
+
+makebutton("buttonslingattach","slingattachbut",646,462,"attach_sling");
+makebutton("buttonslingrelease","slingreleasebut",716,462,"release_sling");
+
+makediv("cover",0,343,780,157,"blank.gif");
+
+makediv("background",0,0,780,343,"background.jpg");
+makealpha("sign",689,192,163,142,"sign.png",1);
+makealpha("lowloader",798,212,418,123,"lowloader.png",1);
+makediv("cable",-7,228,1,17,"cable.gif");
+makealpha("hook",-13,238,13,37,"hook.png",1);
+makealpha("jibraise1",-377,154,370,80,"jibraise1.png",0);
+makealpha("jibraise2",-379,113,363,124,"jibraise2.png",0);
+makealpha("jibdown3",-42,195,36,38,"jibdown3.png",1);
+makealpha("jibdown1",-376,195,353,38,"jibdown1.png",1);
+makealpha("jibup3",-135,68,108,61,"jibup3.png",0);
+makealpha("jibup2",-150,68,106,66,"jibup2.png",0);
+makealpha("jibup1",-376,67,332,172,"jibup1.png",0);
+makealpha("crane",-376,207,353,128,"crane.png",1);
+
+makealpha("trunk1",399,240,27,72,"trunk1.png",1);
+makealpha("trunk2",350,217,69,99,"trunk2.png",0);
+makealpha("ele",389,180,214,148,"ele.png",1);
+makealpha("eye1",417,216,17,19,"eye.png",1);
+makealpha("eye2",417,216,17,19,"eyefwd.png",0);
+makealpha("eye3",417,216,17,19,"eyeback.png",0);
+makealpha("sling",500,179,57,93,"sling.png",0);
+
+makealpha("guidebody",94,208,189,135,"guidebody.png",1);
+makealpha("guidehead1",149,113,94,112,"guidehead1.png",1);
+makealpha("guidehead2",139,112,100,117,"guidehead2.png",0);
+
+makealpha("balloon",226,6,316,189,"balloon.png",1);
+w('<div id="introdiv" style="position:absolute; left: 266; top: 40; width: 236px; height: 149px; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 16px; text-align: center; color: #660000; visibility: visible;">');
+w(introtext);
+w('</div>');
+w('<div id="introOK" style="position:absolute; left: 365; top: 144; width: 38px; height: 28px; visibility: visible;">');
+w('<a href="javascript:start()"><img src="images/ok.gif" width=38 height=28 border=0></a>');
+w('</div>');
+w('<div id="playagain" style="position:absolute; left: 341; top: 144; width: 86px; height: 28px; visibility: hidden;">');
+w('<a href="javascript:restart()"><img src="images/playagain.gif" width=86 height=28 border=0></a>');
+w('</div>');
+
+makealpha("messageboard",218,346,338,138,"messageboard.png",0);
+
+w('<div id="messagediv" style="position:absolute; left: 238; top: 366; width: 298px; height: 98px; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 16px; text-align: center; color: #660000; visibility: hidden;">');
+w('</div>');
+
+w('<div id="messageOK" style="position:absolute; left: 370; top: 446; width: 38px; height: 28px; visibility: hidden;">');
+w('<a href="javascript:hidemessage()"><img src="images/okmess.gif" width=38 height=28 border=0></a>');
+w('</div>');
+
+function start() {
+eleup=0;
+jibup=0;
+jibextend=0;
+hookdown=0;
+shorthookdrop=5;
+longhookdrop=27;
+eledrop=23;
+jibdelay=100;
+slingflag=0;
+ready_to_attach=0;
+lorrypos=0;
+cranepos=0;
+hookmoving=0;
+finish=0;
+
+hidediv("cover");
+hidediv("balloon");
+hidediv("introdiv");
+hidediv("introOK");
+hidediv("guidebody");
+hidediv("guidehead1");
+}
+
+function restart() {
+showdiv("cover");
+movedivto("lowloader",798,212);
+movedivto("cable",-7,228);
+document.IMcable.height=17;
+movedivto("hook",-13,238);
+hidediv("jibraise1");
+movedivto("jibraise1",-377,154);
+hidediv("jibraise2");
+movedivto("jibraise2",-379,113);
+showdiv("jibdown3");
+movedivto("jibdown3",-42,195);
+showdiv("jibdown1");
+movedivto("jibdown1",-376,195);
+hidediv("jibup3");
+movedivto("jibup3",-135,68);
+hidediv("jibup2");
+movedivto("jibup2",-150,68);
+hidediv("jibup1");
+movedivto("jibup1",-376,67);
+movedivto("crane",-376,207);
+
+showdiv("trunk1");
+hidediv("trunk2");
+movedivto("trunk1",399,240);
+movedivto("trunk2",350,217);
+movedivto("ele",389,180);
+movedivto("eye1",417,216);
+movedivto("eye2",417,216);
+movedivto("eye3",417,216);
+movedivto("sling",500,179);
+
+showdiv("guidebody");
+showdiv("guidehead1");
+hidediv("guidehead2");
+showdiv("introdiv");
+showdiv("introOK");
+showdiv("balloon");
+str=introtext; write_to_div("introdiv");
+hidediv("playagain");
+}
+
+function makebutton(N,I,L,T,Func) {
+w('<div id="'+N+'" style="position:absolute; left: '+L+'; top: '+T+'; width: 25px; height: 25px;">');
+w('<a href="javascript:'+Func+'()"><img name="'+I+'" src="images/buttonout.gif" width=25 height=25 border=0></a>');
+w('</div>');
+}
+
+function makediv(N,L,T,W,H,im) {
+w('<div id="'+N+'" style="position:absolute; left: '+L+'; top: '+T+'; width: '+W+'px; height: '+H+'px;">');
+w('<img name="IM'+N+'" src="images/'+im+'" width='+W+' height='+H+'>');
+w('</div>');
+}
+
+function makealpha(N,L,T,W,H,im,v) {
+if(v==0) v="hidden";
+else v="visible";
+w('<div id="'+N+'" style="position:absolute; left: '+L+'; top: '+T+'; width: '+W+'px; height: '+H+'px; visibility: '+v+'; filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=\'images/'+im+'\');">');
+w('<img style="filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);" src="images/'+im+'" width='+W+' height='+H+'>');
+w('</div>');
+}
+
+cr=0;
+cf=0;
+lr=0;
+lf=0;
+
+function makemessage(txt) {
+str=message[txt];
+showdiv("cover");
+write_to_div("messagediv");
+showdiv("messageboard");
+showdiv("messagediv");
+showdiv("messageOK");
+}
+
+function hidemessage() {
+hidediv("cover");
+hidediv("messageboard");
+hidediv("messagediv");
+hidediv("messageOK");
+}
+
+function crane_forward() {
+clearTimeout(cr);
+if(parseInt(document.getElementById("crane").style.left)==0) {
+if(eleup==0 && slingflag==0) {makemessage(1); return;}
+else {makemessage(2); return;}
+}
+button_in("cranefwdbut");
+clearTimeout(cr);
+showdiv("eye2");
+hidediv("eye1");
+crane_forward2();
+}
+function crane_forward2() {
+if(parseInt(document.getElementById("crane").style.left)<0) {
+movedivby("cable",4,0);
+movedivby("hook",4,0);
+movedivby("jibraise1",4,0);
+movedivby("jibraise2",4,0);
+movedivby("jibdown1",4,0);
+movedivby("jibdown3",4,0);
+movedivby("jibup3",4,0);
+movedivby("jibup2",4,0);
+movedivby("jibup1",4,0);
+movedivby("crane",4,0);
+if(slingflag==1) {
+movedivby("trunk1",4,0);
+movedivby("trunk2",4,0);
+movedivby("ele",4,0);
+movedivby("sling",4,0);
+movedivby("eye1",4,0);
+movedivby("eye2",4,0);
+movedivby("eye3",4,0);
+}
+cf=setTimeout("crane_forward2()",10);
+}
+else {
+setTimeout("eye_reset()",200);
+cranepos=1;
+}
+}
+
+function crane_reverse() {
+if(slingflag==1) {makemessage(2); return;}
+clearTimeout(cf);
+button_in("cranebwdbut");
+crane_reverse2();
+}
+function crane_reverse2() {
+if(parseInt(document.getElementById("crane").style.left)>-376) {
+movedivby("cable",-4,0);
+movedivby("hook",-4,0);
+movedivby("jibraise1",-4,0);
+movedivby("jibraise2",-4,0);
+movedivby("jibdown1",-4,0);
+movedivby("jibdown3",-4,0);
+movedivby("jibup3",-4,0);
+movedivby("jibup2",-4,0);
+movedivby("jibup1",-4,0);
+movedivby("crane",-4,0);
+if(slingflag==1) {
+
+movedivby("trunk1",-4,0);
+movedivby("trunk2",-4,0);
+movedivby("ele",-4,0);
+movedivby("sling",-4,0);
+movedivby("eye1",-4,0);
+movedivby("eye2",-4,0);
+movedivby("eye3",-4,0);
+}
+cr=setTimeout("crane_reverse2()",10);
+}
+else cranepos=0;
+}
+
+
+function lorry_reverse() {
+clearTimeout(lf);
+endpath=362;
+if(eleup==0) endpath=590;
+if(parseInt(document.getElementById("lowloader").style.left)==endpath) {makemessage(3); return;}
+button_in("lorrybwdbut");
+if(eleup==0) {
+showdiv("eye3");
+hidediv("eye1");
+}
+lorry_reverse2();
+}
+function lorry_reverse2() {
+if(parseInt(document.getElementById("lowloader").style.left)>endpath) {
+movedivby("lowloader",-4,0);
+lr=setTimeout("lorry_reverse2()",10);
+}
+else {
+setTimeout("eye_reset()",200);
+if(endpath==362) lorrypos=1;
+}
+}
+
+function lorry_forward() {
+if(eleup==0 && slingflag==1) {makemessage(4); return;}
+clearTimeout(lr);
+button_in("lorryfwdbut");
+ee=4;
+if(lorrypos==1 && eleup==0 && slingflag==0) {
+showdiv("trunk2");
+hidediv("trunk1");
+ee=2;
+}
+lorry_forward2();
+}
+function lorry_forward2() {
+if(parseInt(document.getElementById("lowloader").style.left)<798) {
+movedivby("lowloader",ee,0);
+if(lorrypos==1 && eleup==0 && slingflag==0) {
+movedivby("trunk1",ee,0);
+movedivby("trunk2",ee,0);
+movedivby("ele",ee,0);
+movedivby("eye1",ee,0);
+movedivby("eye2",ee,0);
+movedivby("eye3",ee,0);
+finish=1;
+}
+lf=setTimeout("lorry_forward2()",10);
+}
+else {
+lorrypos=0;
+if(finish==1) {
+str=finaltext;
+write_to_div("introdiv");
+showdiv("cover");
+showdiv("balloon");
+showdiv("introdiv");
+showdiv("playagain");
+showdiv("guidebody");
+showdiv("guidehead2");
+}
+}
+}
+
+function attach_sling() {
+if(slingflag==1) return;
+button_in("slingattachbut");
+showdiv("sling");
+
+if(jibextend==1 && cranepos==1 && hookdown>=eledrop) slingflag=1;
+else {
+makemessage(5);
+setTimeout("hidediv('sling')",500);
+}
+}
+
+function release_sling() {
+if(eleup==1) {makemessage(6); return;}
+if(slingflag==0) {makemessage(7); return;}
+button_in("slingreleasebut");
+hidediv("sling");
+slingflag=0;
+}
+
+function raise_jib() {
+if(jibup==1) return;
+button_in("jibupbut");
+basex=parseInt(document.getElementById("crane").style.left);
+if(jibextend==1) {
+jibextend=0;
+movedivto("jibdown3",parseInt(document.getElementById("crane").style.left)+334,.1);
+movedivto("cable",parseInt(document.getElementById("crane").style.left)+369,.1);
+movedivto("hook",parseInt(document.getElementById("crane").style.left)+363,.1);
+setTimeout("raise_jib2()",jibdelay);
+}
+else raise_jib2();
+}
+function raise_jib2() {
+hidediv("jibdown1");
+hidediv("jibdown3");
+showdiv("jibraise1");
+movedivto("cable",basex+367,187);
+movedivto("hook",basex+361,187-7+document.IMcable.height);
+setTimeout("raise_jib3()",jibdelay);
+}
+function raise_jib3() {
+hidediv("jibraise1");
+showdiv("jibraise2");
+movedivto("cable",basex+360,146);
+movedivto("hook",basex+354,146-7+document.IMcable.height);
+setTimeout("raise_jib4()",jibdelay);
+}
+function raise_jib4() {
+basex=parseInt(document.getElementById("crane").style.left);
+hidediv("jibraise2");
+showdiv("jibup1");
+showdiv("jibup2");
+showdiv("jibup3");
+movedivto("cable",basex+347,97);
+movedivto("hook",basex+341,97-7+document.IMcable.height);
+jibup=1;
+}
+
+function lower_jib() {
+if(jibup==0) return;
+if(jibextend==1) {makemessage(8);return;}
+
+if(hookdown>0) {
+cable_height=document.IMcable.height;
+counttotal=hookdown;
+count=0;
+delay=5;
+raise_hook2();
+setTimeout("lower_jib1()",400);
+}
+else lower_jib1();
+}
+
+function lower_jib1() {
+button_in("jibdownbut");
+basex=parseInt(document.getElementById("crane").style.left);
+hidediv("jibup1");
+hidediv("jibup2");
+hidediv("jibup3");
+showdiv("jibraise2");
+movedivto("cable",basex+360,146);
+movedivto("hook",basex+354,146-7+document.IMcable.height);
+setTimeout("lower_jib2()",jibdelay);
+}
+function lower_jib2() {
+hidediv("jibraise2");
+showdiv("jibraise1");
+movedivto("cable",basex+367,187);
+movedivto("hook",basex+361,187-7+document.IMcable.height);
+setTimeout("lower_jib3()",jibdelay);
+}
+function lower_jib3() {
+hidediv("jibraise1");
+showdiv("jibdown1");
+showdiv("jibdown3");
+movedivto("cable",parseInt(document.getElementById("crane").style.left)+369,228);
+movedivto("hook",parseInt(document.getElementById("crane").style.left)+363,228-7+document.IMcable.height);
+jibup=0;
+}
+
+function extend_jib() {
+if(jibextend==1) return;
+button_in("jibextendbut");
+if(jibup==0 && parseInt(document.getElementById("crane").style.left)>-376) {
+showdiv("eye2");
+hidediv("eye1");
+extend_jib2();
+}
+if(jibup==1) extend_jib3();
+}
+
+function extend_jib2() {
+limit=parseInt(document.getElementById("crane").style.left)+350;
+if(parseInt(document.getElementById("jibdown3").style.left)<limit) {
+movedivby("jibdown3",4,0);
+movedivby("cable",4,0);
+movedivby("hook",4,0);
+jf=setTimeout("extend_jib2()",20);
+}
+else {
+jibextend=1;
+setTimeout("eye_reset()",800);
+}
+}
+
+function extend_jib3() {
+limit=parseInt(document.getElementById("crane").style.left)+406;
+if(parseInt(document.getElementById("jibup3").style.left)<limit) {
+movedivby("jibup2",5,-2);
+movedivby("jibup3",10,-4);
+movedivby("cable",10,-4);
+movedivby("hook",10,-4);
+jf=setTimeout("extend_jib3()",20);
+}
+jibextend=1;
+}
+
+function retract_jib() {
+if(jibextend==0) return;
+if(slingflag==1) {makemessage(9); return;}
+button_in("jibretractbut");
+if(jibup==0) retract_jib2();
+if(jibup==1) retract_jib3();
+}
+function retract_jib2() {
+limit=parseInt(document.getElementById("crane").style.left)+334;
+if(parseInt(document.getElementById("jibdown3").style.left)>limit) {
+movedivby("jibdown3",-4,0);
+movedivby("cable",-4,0);
+movedivby("hook",-4,0);
+jf=setTimeout("retract_jib2()",20);
+}
+jibextend=0;
+}
+function retract_jib3() {
+limit=parseInt(document.getElementById("crane").style.left)+241;
+if(parseInt(document.getElementById("jibup3").style.left)>limit) {
+movedivby("jibup2",-5,2);
+movedivby("jibup3",-10,4);
+movedivby("cable",-10,4);
+movedivby("hook",-10,4);
+jf=setTimeout("retract_jib3()",20);
+}
+jibextend=0;
+}
+
+function eye_reset() {
+showdiv("eye1");
+hidediv("eye2");
+hidediv("eye3");
+}
+
+function lower_hook() {
+if(hookmoving==1) return;
+if(hookdown>0 && jibup==0) return;
+if(hookdown==longhookdrop) return;
+button_in("hookdownbut");
+cable_height=document.IMcable.height;
+if(jibup==0) counttotal=shorthookdrop;
+else counttotal=longhookdrop;
+if(hookdown>0) counttotal=longhookdrop-shorthookdrop;
+if(slingflag==1 && lorrypos==1) counttotal=eledrop;
+count=0;
+hookmoving=1;
+lower_hook2();
+}
+function lower_hook2() {
+movedivby("hook",0,4);
+if(slingflag==1) {
+movedivby("ele",0,4);
+movedivby("trunk1",0,4);
+movedivby("trunk2",0,4);
+movedivby("sling",0,4);
+movedivby("eye1",0,4);
+movedivby("eye2",0,4);
+movedivby("eye3",0,4);
+}
+cable_height+=4;
+document.IMcable.height=cable_height;
+count++;
+if(count<counttotal) hd=setTimeout("lower_hook2()",20);
+else {
+hookmoving=0;
+if(jibup>0) {
+if(counttotal!=eledrop) counttotal=longhookdrop;
+}
+hookdown=counttotal;
+if(slingflag==1) eleup=0;
+}
+}
+
+
+
+function raise_hook() {
+if(hookmoving==1) return;
+if(hookdown==0) return;
+button_in("hookupbut");
+cable_height=document.IMcable.height;
+count=0;
+hookmoving=1;
+delay=20;
+if(slingflag==1) counttotal*=4;
+raise_hook2();
+}
+function raise_hook2() {
+inc=4
+if(slingflag==1) inc=1;
+movedivby("hook",0,-inc);
+if(slingflag==1) {
+movedivby("trunk1",0,-inc);
+movedivby("trunk2",0,-inc);
+movedivby("ele",0,-inc);
+movedivby("sling",0,-inc);
+movedivby("eye1",0,-inc);
+movedivby("eye2",0,-inc);
+movedivby("eye3",0,-inc);
+}
+cable_height-=inc;
+document.IMcable.height=cable_height;
+count++;
+if(count<counttotal) hd=setTimeout("raise_hook2()",delay);
+else {
+hookmoving=0;
+hookdown=0;
+if(slingflag==1) eleup=1;
+}
+}
+
+function button_in(tb) {
+thisbutton=tb;
+eval('document.'+thisbutton+'.src="images/buttonin.gif"');
+setTimeout("button_out()",200);
+}
+function button_out() {
+eval('document.'+thisbutton+'.src="images/buttonout.gif"');
+}
+
+function movedivby(d,x,y) {
+cx=eval('parseInt(document.getElementById("'+d+'").style.left)');
+cy=eval('parseInt(document.getElementById("'+d+'").style.top)');
+if(x!=0) eval('document.getElementById("'+d+'").style.left='+(cx+x));
+if(y!=0) eval('document.getElementById("'+d+'").style.top='+(cy+y));
+}
+
+function movedivto(d,x,y) {
+if(x!=.1) eval('document.getElementById("'+d+'").style.left='+x);
+if(y!=.1) eval('document.getElementById("'+d+'").style.top='+y);
+}
+
+function hidediv(d) {
+eval('document.getElementById("'+d+'").style.visibility="hidden"');
+}
+
+function showdiv(d) {
+eval('document.getElementById("'+d+'").style.visibility="visible"');
+}
+
+function write_to_div(divName) {
+eval('document.getElementById("'+divName+'").innerHTML=str');
+}
+
+function w(str) {
+document.write(str);
+}
+
+// -->
+</script>
+
+</body>
+</html>
